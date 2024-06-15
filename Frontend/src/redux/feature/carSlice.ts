@@ -126,4 +126,13 @@ export const MSRPFilteredItems = (state) => {
     );
 };
 
+export const historyFilterItems = (state) => {
+  const { items, durationFilterCondition } = state.car;
+  return items.filter((item) =>
+    durationFilterCondition.length === 0
+      ? item
+      : filterByDuration(item, durationFilterCondition)
+  );
+};
+
 export default carSlice.reducer;

@@ -49,7 +49,7 @@ const Recent = ({ data }: any) => {
           .toString()
           .substring(2)}`}
       </p>
-      <div className="grid grid-cols-8 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 2xl:grid-cols-8 gap-4">
         <SmallCard
           title="# New Units"
           value={carData.newCar.length.toString()}

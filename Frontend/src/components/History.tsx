@@ -17,10 +17,13 @@ import {
 } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
 import { useSelector, useDispatch } from "react-redux";
+import { historyFilterItems } from "../redux/feature/carSlice";
 
 const History = () => {
-  const { items } = useSelector((state) => state.car);
+  // const { items } = useSelector((state) => state.car);
+  const items = useSelector(historyFilterItems);
   const [tableRow, setTableRow] = useState(5);
+  const [tablePage, setTablePage] = useState(1);
   const [sortInc, setSortInc] = useState(true);
 
   //   cleaning items1 date
@@ -99,9 +102,13 @@ const History = () => {
   tableData.sort((a, b) =>
     sortInc
       ? new Date(a.date) - new Date(b.date)
-      : new Date(a.date) + new Date(b.date)
+      : new Date(b.date) - new Date(a.date)
   );
   console.log(tableData);
+  const pageHandler = (selectedPage) => {
+    if (selectedPage >= 1 && selectedPage <= tableData.length / tableRow + 1)
+      setTablePage(selectedPage);
+  };
 
   return (
     <div className="flex flex-col gap-[30px] mb-[80px]">
@@ -155,49 +162,51 @@ const History = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {tableData.slice(0, tableRow).map((item, index) => (
-              <TableRow key={index}>
-                <TableCell className="text-black text-[14px]">
-                  {item.date}
-                </TableCell>
-                <TableCell className="text-black text-[14px]">
-                  {item.condition.new.count}
-                </TableCell>
-                <TableCell className="text-black text-[14px]">
-                  $ {item.condition.new.sum}
-                </TableCell>
-                <TableCell className="text-black text-[14px]">
-                  ${" "}
-                  {item.condition.new.averagePrice === "NaN"
-                    ? "0.00"
-                    : item.condition.new.averagePrice}
-                </TableCell>
-                <TableCell className="text-black text-[14px]">
-                  {item.condition.used.count}
-                </TableCell>
-                <TableCell className="text-black text-[14px]">
-                  $ {item.condition.used.sum}
-                </TableCell>
-                <TableCell className="text-black text-[14px]">
-                  ${" "}
-                  {item.condition.used.averagePrice === "NaN"
-                    ? "0.00"
-                    : item.condition.used.averagePrice}
-                </TableCell>
-                <TableCell className="text-black text-[14px]">
-                  {item.condition.cpo.count}
-                </TableCell>
-                <TableCell className="text-black text-[14px]">
-                  $ {item.condition.cpo.sum}
-                </TableCell>
-                <TableCell className="text-black text-[14px]">
-                  ${" "}
-                  {item.condition.cpo.averagePrice === "NaN"
-                    ? "0.00"
-                    : item.condition.cpo.averagePrice}
-                </TableCell>
-              </TableRow>
-            ))}
+            {tableData
+              .slice(tablePage * tableRow - tableRow, tablePage * tableRow)
+              .map((item, index) => (
+                <TableRow key={index}>
+                  <TableCell className="text-black text-[14px]">
+                    {item.date}
+                  </TableCell>
+                  <TableCell className="text-black text-[14px]">
+                    {item.condition.new.count}
+                  </TableCell>
+                  <TableCell className="text-black text-[14px]">
+                    $ {item.condition.new.sum}
+                  </TableCell>
+                  <TableCell className="text-black text-[14px]">
+                    ${" "}
+                    {item.condition.new.averagePrice === "NaN"
+                      ? "0.00"
+                      : item.condition.new.averagePrice}
+                  </TableCell>
+                  <TableCell className="text-black text-[14px]">
+                    {item.condition.used.count}
+                  </TableCell>
+                  <TableCell className="text-black text-[14px]">
+                    $ {item.condition.used.sum}
+                  </TableCell>
+                  <TableCell className="text-black text-[14px]">
+                    ${" "}
+                    {item.condition.used.averagePrice === "NaN"
+                      ? "0.00"
+                      : item.condition.used.averagePrice}
+                  </TableCell>
+                  <TableCell className="text-black text-[14px]">
+                    {item.condition.cpo.count}
+                  </TableCell>
+                  <TableCell className="text-black text-[14px]">
+                    $ {item.condition.cpo.sum}
+                  </TableCell>
+                  <TableCell className="text-black text-[14px]">
+                    ${" "}
+                    {item.condition.cpo.averagePrice === "NaN"
+                      ? "0.00"
+                      : item.condition.cpo.averagePrice}
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
 
@@ -218,9 +227,10 @@ const History = () => {
               </SelectContent>
             </Select>
           </div>
-          <div className="w-[100px]">
+          <div className="w-[120px]">
             <span className="flex items-center">
-              1-{tableRow} of {Math.floor(tableData.length / tableRow)}
+              {tablePage * tableRow - tableRow + 1}-{tablePage * tableRow} of{" "}
+              {Math.floor(tableData.length / tableRow) + 1}
             </span>
           </div>
           <div className="flex items-center gap-3">
@@ -228,8 +238,14 @@ const History = () => {
               src="./arrow.png"
               alt=""
               className="rotate-180 cursor-pointer"
+              onClick={() => pageHandler(tablePage - 1)}
             />
-            <img src="./arrow.png" alt="" className=" cursor-pointer" />
+            <img
+              src="./arrow.png"
+              alt=""
+              className=" cursor-pointer"
+              onClick={() => pageHandler(tablePage + 1)}
+            />
           </div>
         </div>
       </Card>

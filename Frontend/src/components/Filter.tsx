@@ -229,6 +229,7 @@ const Filter = () => {
                 setBrand([]);
                 setDuration([]);
                 dispatch(setBrandFilterCondition([]));
+                dispatch(setDurationFilterCondition([]));
               }}
             >
               <img src="./cross.png" alt="" />
