@@ -96,22 +96,6 @@ const Filter = () => {
               Jeep
             </Label>
           </div>
-
-          <div className="flex items-center gap-4">
-            <input
-              type="checkbox"
-              id="GMC"
-              checked={brand.includes("GMC")}
-              onChange={(e) => handleBrandCheckbox(e)}
-              className="h-4 w-4 "
-            />
-            <Label
-              htmlFor="GMC"
-              className="text-[14px] text-black tracking-[0.15px]"
-            >
-              GMC
-            </Label>
-          </div>
         </div>
 
         <div className="flex flex-col gap-4 p-5 border-b">

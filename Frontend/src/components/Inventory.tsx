@@ -55,6 +55,8 @@ const Inventory = () => {
     });
   }, [filteredItems]);
 
+  console.log(chartData);
+
   return (
     <div className="flex flex-col gap-[30px]">
       <div className="flex items-center gap-4">

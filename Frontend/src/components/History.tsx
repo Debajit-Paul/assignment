@@ -104,7 +104,7 @@ const History = () => {
       ? new Date(a.date) - new Date(b.date)
       : new Date(b.date) - new Date(a.date)
   );
-  console.log(tableData);
+
   const pageHandler = (selectedPage) => {
     if (selectedPage >= 1 && selectedPage <= tableData.length / tableRow + 1)
       setTablePage(selectedPage);
