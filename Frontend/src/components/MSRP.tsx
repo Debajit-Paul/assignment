@@ -42,7 +42,7 @@ const MSRP = () => {
   }));
 
   chartDataPrep.sort((a, b) => new Date(a.date) - new Date(b.date));
-
+  
   const chartData = {
     labels: chartDataPrep.map((item) => item.date),
     datasets: [

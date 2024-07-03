@@ -13,6 +13,7 @@ const Filter = () => {
 
   const handleBrandCheckbox = (e) => {
     const { id, checked } = e.target;
+      console.log(checked)
     setBrand((prevBrand) => {
       if (checked) {
         return [...prevBrand, id];
@@ -197,7 +198,7 @@ const Filter = () => {
         <div className="grid grid-cols-2 justify-items-center gap-3 mt-5">
           <SheetClose className="w-full">
             <div
-              className="bg-[#F59322] text-white text-[12px]  tracking-[1.25px] font-[500] rounded-sm flex items-center justify-center leading-[36px] cursor-pointer"
+              className="bg-[#F59322] text-white text-[12px] tracking-[1.25px] font-[500] rounded-sm flex items-center justify-center leading-[36px] cursor-pointer"
               onClick={() => {
                 dispatch(setBrandFilterCondition(brand));
                 dispatch(setDurationFilterCondition(duration));

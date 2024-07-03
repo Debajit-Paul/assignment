@@ -41,6 +41,7 @@ const Inventory = () => {
       return acc;
     }, {});
     const dates = Object.keys(inventoryByDate);
+    // console.log(dates)
     dates.sort((a, b) => new Date(a) - new Date(b));
     const inventoryCounts = Object.values(inventoryByDate);
     setChartData({
@@ -55,7 +56,7 @@ const Inventory = () => {
     });
   }, [filteredItems]);
 
-  console.log(chartData);
+  // console.log(chartData);
 
   return (
     <div className="flex flex-col gap-[30px]">

@@ -45,8 +45,11 @@ const filterByDuration = (item, durationConditions) => {
     switch (condition) {
       case "Last Month":
         const lastMonths = new Date(now);
-        lastMonths.setMonth(now.getMonth() - 1);
-        return itemDate.getMonth() === lastMonths.getMonth();
+        lastMonths.setMonth(now.getMonth() - 1)
+        return (
+          itemDate.getMonth() === lastMonths.getMonth() &&
+          itemDate.getFullYear() === lastMonths.getFullYear()
+        );
       case "This Month":
         return (
           itemDate.getMonth() === now.getMonth() &&

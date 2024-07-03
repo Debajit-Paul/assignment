@@ -10,6 +10,7 @@ const Header = () => {
           ADMIN VIEW
         </div>
       </div>
+      
       <div className="flex items-center gap-5 cursor-pointer">
         <div className="flex items-center gap-2">
           <img src="./support.png" alt="support" />
